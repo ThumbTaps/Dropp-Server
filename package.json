@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/ThumbTaps/Dropp-Server/issues"
   },
-  "homepage": "https://github.com/ThumbTaps/Dropp-Server#readme"
+  "homepage": "https://github.com/ThumbTaps/Dropp-Server#readme",
+  "dependencies": {
+    "node-pushnotifications": "^1.0.18"
+  }
 }
