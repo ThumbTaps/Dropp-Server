@@ -6,9 +6,9 @@ import PerfectNotifications
 // your app id. we use this as the configuration name, but they do not have to match
 let notificationsAppId = "com.arcyn1c.dropp"
 
-let apnsKeyIdentifier = "35MZ5QLB4Q"
+let apnsKeyIdentifier = "Z2H285X72A"
 let apnsTeamIdentifier = "ZR82Q7TH8E"
-let apnsPrivateKeyFilePath = "/Users/jeffery/Documents/Developer/Projects/Thumb Taps/Dropp/Server/APNsAuthKey_35MZ5QLB4Q.p8"
+let apnsPrivateKeyFilePath = "/Users/jeffery/Documents/Developer/Projects/Thumb Taps/Dropp/Server/APNsAuthKey_Z2H285X72A.p8"
 
 // An example request handler.
 // This 'handler' function can be referenced directly in the configuration below.
