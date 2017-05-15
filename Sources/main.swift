@@ -1,6 +1,7 @@
 import PerfectLib
 import PerfectHTTP
 import PerfectHTTPServer
+import MongoDB
 import PerfectNotifications
 
 // your app id. we use this as the configuration name, but they do not have to match
@@ -12,48 +13,57 @@ let apnsPrivateKeyFilePath = "APNsAuthKey_Z2H285X72A.p8"
 
 // An example request handler.
 // This 'handler' function can be referenced directly in the configuration below.
-func handler(data: [String:Any]) throws -> RequestHandler {
-	return {
-		request, response in
+func homeRoute(data: [String:Any]) throws -> RequestHandler {
+	return { request, response in
 		// Respond with a simple message.
 		response.setHeader(.contentType, value: "text/html")
 		response.appendBody(string: "<html><title>Hello, world!</title><body>Hello, world!</body></html>")
 		// Ensure that response.completed() is called when your processing is done.
+		print("Well now")
+		response.completed()
+	}
+}
+func APNSRegister(data: [String:Any]) throws -> RequestHandler {
+	return { request, response in
+		response.setHeader(.contentType, value: "text/html")
+		response.appendBody(string: "<html><title>Hello, world!</title><body>Hello, world!</body></html>")
+
+		print("Request: ", request)
 		response.completed()
 	}
 }
 
-// Configuration data for two example servers.
-// This example configuration shows how to launch one or more servers
-// using a configuration dictionary.
-
-let port1 = 8080, port2 = 8181
+let port = 80
 
 let confData = [
 	"servers": [
-		// Configuration data for one server which:
-		//	* Serves the hello world message at <host>:<port>/
-		//	* Serves static files out of the "./webroot"
-		//		directory (which must be located in the current working directory).
-		//	* Performs content compression on outgoing data when appropriate.
 		[
-			"name":"localhost",
-			"port":port1,
-			"routes":[
-				["method":"get", "uri":"/", "handler":handler],
-				["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.staticFiles,
-				 "documentRoot":"./webroot",
-				 "allowResponseFilters":true]
-			]
-		],
-		// Configuration data for another server which:
-		//	* Redirects all traffic back to the first server.
-		[
-			"name":"localhost",
-			"port":port2,
-			"routes":[
-				["method":"get", "uri":"/**", "handler":PerfectHTTPServer.HTTPHandler.redirect,
-				 "base":"http://localhost:\(port1)"]
+			"name": "localhost",
+			"port": port,
+			"routes": [
+				// home
+				[
+					"method": "get",
+					"uri": "/",
+					"handler": homeRoute
+				],
+				
+//				// catch-all for static files
+//				[
+//					"method": "get",
+//					"uri": "/**",
+//					"handler": PerfectHTTPServer.HTTPHandler.staticFiles,
+//					"documentRoot": "/",
+//					"allowResponseFilters": true
+//				],
+				
+				// APNS device registration
+				[
+					"method": "post",
+					"uri": "/apns-register",
+					"handler": APNSRegister
+				]
+				
 			]
 		]
 	]
