@@ -26,7 +26,7 @@ func homeRoute(data: [String:Any]) throws -> RequestHandler {
 func APNSRegister(data: [String:Any]) throws -> RequestHandler {
 	return { request, response in
 		
-		debugPrint(request)
+		print(request.param(name: "token"))
 		response.completed()
 	}
 }
