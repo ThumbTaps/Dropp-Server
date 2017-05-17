@@ -25,10 +25,8 @@ func homeRoute(data: [String:Any]) throws -> RequestHandler {
 }
 func APNSRegister(data: [String:Any]) throws -> RequestHandler {
 	return { request, response in
-		response.setHeader(.contentType, value: "text/html")
-		response.appendBody(string: "<html><title>Hello, world!</title><body>Hello, world!</body></html>")
-
-		print("Request: ", request)
+		
+		debugPrint(request)
 		response.completed()
 	}
 }
